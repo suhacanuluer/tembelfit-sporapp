@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 const UserModel = require("../Models/User");
+const SportCategoriesModel = require("../Models/SportCategories");
+const SportSubCategoriesModel = require("../Models/SportSubCategories");
 
 const sequelize = new Sequelize("tembelfit-sporapp", "root", "Ass122...", {
     host: "127.0.0.1",
@@ -25,8 +27,16 @@ var reconnectOptions = {
 };
     
 const User = UserModel(sequelize, Sequelize);
+const SportCategories = SportCategoriesModel(sequelize, Sequelize);
+const SportSubCategories = SportSubCategoriesModel(sequelize, Sequelize);
+
+SportSubCategories.belongsTo(SportCategories, { foreignKey: "cat_id" });
+SportCategories.hasMany(SportSubCategories, { foreignKey: "cat_id" });
+
 
 module.exports = {
     sequelize,
     User,
+    SportCategories,
+    SportSubCategories
 };
