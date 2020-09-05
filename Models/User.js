@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { sequelize } = require("../Database/Database");
+
 module.exports = (sequelize, DataTypes) => {
     return (User = sequelize.define(
         "user",
@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
             },
             illness: {
                 type: Sequelize.INTEGER,
-            }
+            },
         },
-        { freezeTableName: true, timestamps:false }
+        { freezeTableName: true, timestamps: false }
     ));
 };
