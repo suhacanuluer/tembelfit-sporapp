@@ -6,10 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             title: {
                 type: Sequelize.STRING,
-            },
-            image: {
-                type: Sequelize.STRING,
-            },
+            }
         }, 
         { freezeTableName: true, timestamps: false }
     ));
