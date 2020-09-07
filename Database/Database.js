@@ -4,6 +4,9 @@ const SportCategoriesModel = require("../Models/SportCategories");
 const SportSubCategoriesModel = require("../Models/SportSubCategories");
 const SportDetailsCategoriesModel = require("../Models/SportDetailsCategories");
 const SportDetailsModel = require("../Models/SportDetails");
+const RecipeCategoriesModel = require("../Models/RecipeCategories");
+const RecipesModel = require("../Models/Recipes");
+const RecipeDetailsModel = require("../Models/RecipeDetails");
 
 const sequelize = new Sequelize("tembelfit-sporapp", "root", "Ass122...", {
     host: "127.0.0.1",
@@ -34,6 +37,9 @@ const SportCategories = SportCategoriesModel(sequelize, Sequelize);
 const SportSubCategories = SportSubCategoriesModel(sequelize, Sequelize);
 const SportDetailsCategories = SportDetailsCategoriesModel(sequelize, Sequelize);
 const SportDetails = SportDetailsModel(sequelize, Sequelize);
+const RecipeCategories = RecipeCategoriesModel(sequelize, Sequelize);
+const Recipes = RecipesModel(sequelize, Sequelize);
+const RecipeDetails = RecipeDetailsModel(sequelize, Sequelize);
 
 // Relations 
 SportSubCategories.belongsTo(SportCategories, { foreignKey: "cat_id" });
@@ -45,11 +51,20 @@ SportSubCategories.hasMany(SportDetailsCategories, { foreignKey: "subcat_id" });
 SportDetails.belongsTo(SportDetailsCategories, { foreignKey: "detailscat_id" });
 SportDetailsCategories.hasMany(SportDetails, { foreignKey: "detailscat_id" });
 
+Recipes.belongsTo(RecipeCategories, { foreignKey: "cat_id" });
+RecipeCategories.hasMany(Recipes, { foreignKey: "cat_id" });
+
+RecipeDetails.belongsTo(Recipes, { foreignKey: "rec_id" });
+Recipes.hasMany(RecipeDetails, { foreignKey: "rec_id" });
+
 module.exports = {
     sequelize,
     User,
     SportCategories,
     SportSubCategories,
     SportDetailsCategories,
-    SportDetails
+    SportDetails,
+    RecipeCategories,
+    Recipes,
+    RecipeDetails
 };
