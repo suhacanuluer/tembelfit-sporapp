@@ -26,10 +26,27 @@ router.post("/categories", (req, res) => {
     });
 });
 
-router.get("/details/:cat_id", (req, res) => {
+router.get("/:cat_id", (req, res) => {
     Advisors.findAll({
         where: {
             cat_id: req.params.cat_id
+        },
+        attributes: [
+            "fullName",
+            "title"
+        ]
+    }).then(advisors => {
+        res.json({
+            status: "success",
+            data: advisors
+        });
+    });
+});
+
+router.get("/details/:id", (req, res) => {
+    Advisors.findOne({
+        where: {
+            id: req.params.id
         }
     }).then(details => {
         res.json({
