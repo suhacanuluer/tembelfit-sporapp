@@ -26,7 +26,7 @@ router.post("/categories", (req, res) => {
     });
 });
 
-router.get("/recipes/:cat_id", (req, res) => {
+router.get("/:cat_id", (req, res) => {
     Recipes.findAll({
         where: {
             cat_id: req.params.cat_id
@@ -39,7 +39,7 @@ router.get("/recipes/:cat_id", (req, res) => {
     });
 });
 
-router.post("/recipes", (req, res) => {
+router.post("/", (req, res) => {
     const { cat_id, title, url_link } = req.body;
 
     Recipes.create(req.body).then(recipes => {

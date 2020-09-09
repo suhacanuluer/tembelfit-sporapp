@@ -28,8 +28,8 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/sport", checkAuth, sportRouter);
-app.use("/recipe", checkAuth, recipesRouter);
+app.use("/sports", checkAuth, sportRouter);
+app.use("/recipes", checkAuth, recipesRouter);
 app.use("/advisors", checkAuth, advisorsRouter);
 
 // catch 404 and forward to error handler
