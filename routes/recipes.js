@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const checkAuth = require("../Middleware/checkauth");
 const { RecipeCategories, Recipes, RecipeDetails } = require("../Database/Database");
 
-router.get("/categories", (req, res) => {
+router.get("/categories", checkAuth, (req, res) => {
     RecipeCategories.findAll().then(categories => {
         res.json({
             status: "success",
@@ -11,7 +12,7 @@ router.get("/categories", (req, res) => {
     });
 });
 
-router.post("/categories", (req, res) => {
+router.post("/categories", checkAuth, (req, res) => {
     const { title, image } = req.body;
 
     RecipeCategories.create(req.body).then(categories => {
@@ -26,7 +27,7 @@ router.post("/categories", (req, res) => {
     });
 });
 
-router.get("/:cat_id", (req, res) => {
+router.get("/:cat_id", checkAuth, (req, res) => {
     Recipes.findAll({
         where: {
             cat_id: req.params.cat_id
@@ -39,7 +40,7 @@ router.get("/:cat_id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", checkAuth, (req, res) => {
     const { cat_id, title, url_link } = req.body;
 
     Recipes.create(req.body).then(recipes => {
@@ -54,7 +55,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/details/:rec_id", (req, res) => {
+router.get("/details/:rec_id", checkAuth, (req, res) => { 
     Recipes.findOne({
         where: {
             id: req.params.rec_id
@@ -64,7 +65,7 @@ router.get("/details/:rec_id", (req, res) => {
             where: {
                 rec_id: req.params.rec_id
             },
-            attributes: [ "details" ]
+            attributes: [ "details" ],
         }],
         raw: true
     }).then(details => {
@@ -76,7 +77,7 @@ router.get("/details/:rec_id", (req, res) => {
     });
 });
 
-router.post("/details", (req, res) => {
+router.post("/details", checkAuth, (req, res) => {
     const { rec_id, details } = req.body;
 
     RecipeDetails.create(req.body).then(details => {

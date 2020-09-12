@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const checkAuth = require("../Middleware/checkauth");
 const { AdvisorCategories, Advisors } = require("../Database/Database");
 
-router.get("/categories", (req, res) => {
+router.get("/categories", checkAuth, (req, res) => {
     AdvisorCategories.findAll().then(categories => {
         res.json({
             status: "success",
@@ -11,7 +12,7 @@ router.get("/categories", (req, res) => {
     });
 });
 
-router.post("/categories", (req, res) => {
+router.post("/categories", checkAuth, (req, res) => {
     const { title } = req.body;
 
     AdvisorCategories.create(req.body).then(categories => {
@@ -26,7 +27,7 @@ router.post("/categories", (req, res) => {
     });
 });
 
-router.get("/:cat_id", (req, res) => {
+router.get("/:cat_id", checkAuth, (req, res) => {
     Advisors.findAll({
         where: {
             cat_id: req.params.cat_id
@@ -43,7 +44,7 @@ router.get("/:cat_id", (req, res) => {
     });
 });
 
-router.get("/details/:id", (req, res) => {
+router.get("/details/:id", checkAuth, (req, res) => {
     Advisors.findOne({
         where: {
             id: req.params.id
@@ -56,7 +57,7 @@ router.get("/details/:id", (req, res) => {
     });
 });
 
-router.post("/details", (req, res) => {
+router.post("/details", checkAuth, (req, res) => {
     const { cat_id, title, fullName, age, school, profession, image, phone, url_link } = req.body;
 
     Advisors.create(req.body).then(details => {

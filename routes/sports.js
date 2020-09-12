@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const checkAuth = require("../Middleware/checkauth");
 const { SportCategories, SportSubCategories, SportDetailsCategories, SportDetails } = require("../Database/Database");
 
-router.get("/categories", (req, res) => {
+router.get("/categories", checkAuth, (req, res) => {
     SportCategories.findAll().then(categories => {
         res.json({
             status: "success",
@@ -11,7 +12,7 @@ router.get("/categories", (req, res) => {
     });
 });
 
-router.post("/categories", (req, res) => {
+router.post("/categories", checkAuth, (req, res) => {
     const { title, image } = req.body;
 
     SportCategories.create(req.body).then(categories => {
@@ -26,7 +27,7 @@ router.post("/categories", (req, res) => {
     });
 });
 
-router.get("/subcategories/:cat_id", (req, res) => {
+router.get("/subcategories/:cat_id", checkAuth, (req, res) => {
     SportSubCategories.findAll({
         where: {
             cat_id: req.params.cat_id
@@ -39,7 +40,7 @@ router.get("/subcategories/:cat_id", (req, res) => {
     });
 });
 
-router.post("/subcategories", (req, res) => {
+router.post("/subcategories", checkAuth, (req, res) => {
     const { cat_id, title, image } = req.body;
 
     SportSubCategories.create(req.body).then(subCategories => {
@@ -54,7 +55,7 @@ router.post("/subcategories", (req, res) => {
     });
 });
 
-router.get("/detailcategories/:subcat_id", (req, res)=> {
+router.get("/detailcategories/:subcat_id", checkAuth, (req, res)=> {
     SportDetailsCategories.findAll({
         where: {
             subcat_id: req.params.subcat_id
@@ -67,7 +68,7 @@ router.get("/detailcategories/:subcat_id", (req, res)=> {
     });
 });
 
-router.post("/detailcategories", (req, res) => {
+router.post("/detailcategories", checkAuth, (req, res) => {
     const { subcat_id, title } = req.body;
 
     SportDetailsCategories.create(req.body).then(detailCategories => {
@@ -82,7 +83,7 @@ router.post("/detailcategories", (req, res) => {
     });
 });
 
-router.get("/details/:detailscat_id", (req, res) => {
+router.get("/details/:detailscat_id", checkAuth, (req, res) => {
     SportDetails.findAll({
         where: {
             detailscat_id: req.params.detailscat_id
@@ -95,7 +96,7 @@ router.get("/details/:detailscat_id", (req, res) => {
     })
 })
 
-router.post("/details", (req,res) => {
+router.post("/details", checkAuth, (req,res) => {
     const { detailscat_id, url_link, image } = req.body;
 
     SportDetails.create(req.body).then(details => {
