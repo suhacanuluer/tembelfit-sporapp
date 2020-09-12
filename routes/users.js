@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User } = require("../Database/Database");
+const { Users } = require("../Database/Database");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 
@@ -13,7 +13,7 @@ router.post("/register", (req, res) => {
   const { email, password, fullName, gender, age, height, weight, target, illness } = req.body;
 
   bcrypt.hash(password, 10).then(encryptedPassword => {
-    User.findOne({
+    Users.findOne({
       where: {
         email
       }
@@ -24,7 +24,7 @@ router.post("/register", (req, res) => {
           message: "email exists"
         });
       } else {
-        User.create({
+        Users.create({
           email,
           password: encryptedPassword,
           fullName,
@@ -49,7 +49,7 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
 
-  User.findOne({
+  Users.findOne({
     where: {
       email: email
     }

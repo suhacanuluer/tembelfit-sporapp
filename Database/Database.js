@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const UserModel = require("../Models/User");
+const UsersModel = require("../Models/Users");
 const SportCategoriesModel = require("../Models/SportCategories");
 const SportSubCategoriesModel = require("../Models/SportSubCategories");
 const SportDetailsCategoriesModel = require("../Models/SportDetailsCategories");
@@ -34,7 +34,7 @@ var reconnectOptions = {
 };
   
 // Models
-const User = UserModel(sequelize, Sequelize);
+const Users = UsersModel(sequelize, Sequelize);
 const SportCategories = SportCategoriesModel(sequelize, Sequelize);
 const SportSubCategories = SportSubCategoriesModel(sequelize, Sequelize);
 const SportDetailsCategories = SportDetailsCategoriesModel(sequelize, Sequelize);
@@ -66,7 +66,7 @@ AdvisorCategories.hasMany(Advisors, { foreignKey: "cat_id" });
 
 module.exports = {
     sequelize,
-    User,
+    Users,
     SportCategories,
     SportSubCategories,
     SportDetailsCategories,
