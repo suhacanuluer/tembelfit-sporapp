@@ -12,7 +12,7 @@ const AdvisorsModel = require("../Models/Advisors");
 const DietCategoriesModel = require("../Models/DietCategories");
 const DietsModel = require("../Models/Diets");
 
-const sequelize = new Sequelize("tembelfit-sporapp", "root", "Ass122...", {
+const sequelize = new Sequelize("tembelfit_sporapp", "root", "Ass122...", {
     host: "127.0.0.1",
     port: 3306,
     dialect: "mysql",
